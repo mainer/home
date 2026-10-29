@@ -1,0 +1,8 @@
+# 仅在“命令行部署”这条路线里需要（用 GitHub + Pages 后台部署的话可以忽略）
+name = "our-room"
+compatibility_date = "2024-05-01"
+pages_build_output_dir = "."
+
+[[kv_namespaces]]
+binding = "ROOM_KV"
+id = "把 wrangler kv namespace create ROOM_KV 输出的 id 填这里"

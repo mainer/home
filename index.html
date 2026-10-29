@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>我们的小屋 · 恋爱记事</title>
+<meta name="description" content="一间写实风格的小屋，墙上挂着我们的照片，每一张都是一次回忆。可以随时添加、修改、备份。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- 胶片颗粒 / 暗角 -->
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<!-- ============================ 首屏：房间 ============================ -->
+<section class="hero" id="hero">
+
+  <div class="stage" id="stage">
+    <div class="room" id="room">
+
+      <!-- 后墙 -->
+      <div class="wall" id="wall">
+
+        <!-- 窗 -->
+        <div class="window" aria-hidden="true">
+          <div class="window-pane">
+            <img class="window-photo" src="assets/photos/window-view.jpg" alt="">
+            <div class="glass"></div>
+            <div class="mullion mullion-v"></div>
+            <div class="mullion mullion-h"></div>
+            <div class="pane-frost"></div>
+          </div>
+          <div class="window-frame"></div>
+          <div class="window-sill"></div>
+        </div>
+        <div class="window-glow" aria-hidden="true"></div>
+
+        <!-- 串灯 -->
+        <div class="string-lights" aria-hidden="true">
+          <span class="wire"></span>
+          <i class="bulb" style="--x:4%;  --y:14px; --d:.2s"></i>
+          <i class="bulb" style="--x:14%; --y:30px; --d:.6s"></i>
+          <i class="bulb" style="--x:24%; --y:20px; --d:1.1s"></i>
+          <i class="bulb" style="--x:34%; --y:34px; --d:.9s"></i>
+          <i class="bulb" style="--x:44%; --y:18px; --d:.4s"></i>
+          <i class="bulb" style="--x:54%; --y:30px; --d:1.4s"></i>
+          <i class="bulb" style="--x:64%; --y:16px; --d:.7s"></i>
+          <i class="bulb" style="--x:74%; --y:28px; --d:1.8s"></i>
+          <i class="bulb" style="--x:84%; --y:14px; --d:1.2s"></i>
+          <i class="bulb" style="--x:94%; --y:26px; --d:.3s"></i>
+        </div>
+
+        <!-- 照片墙（由 JS 渲染） -->
+        <div class="wall-photos" id="wallPhotos"></div>
+
+        <!-- 窗下矮柜 -->
+        <div class="sideboard" aria-hidden="true">
+          <div class="sb-shadow"></div>
+          <div class="sb-item sb-plant">
+            <span class="leaf l1"></span><span class="leaf l2"></span><span class="leaf l3"></span><span class="leaf l4"></span>
+            <span class="pot"></span>
+          </div>
+          <div class="sb-item sb-books">
+            <span style="--h:74%;--c:#7a4a35"></span>
+            <span style="--h:88%;--c:#3f5b52"></span>
+            <span style="--h:62%;--c:#a8753f"></span>
+            <span style="--h:80%;--c:#5a4636"></span>
+          </div>
+          <div class="sb-item sb-vase"><span class="stem s1"></span><span class="stem s2"></span><span class="stem s3"></span></div>
+          <div class="sb-item sb-lamp">
+            <span class="lamp-glow"></span>
+            <span class="lamp-shade"></span>
+            <span class="lamp-pole"></span>
+            <span class="lamp-base"></span>
+          </div>
+          <div class="sb-top"></div>
+          <div class="sb-body">
+            <span class="sb-door"></span><span class="sb-door"></span>
+            <span class="sb-handle h1"></span><span class="sb-handle h2"></span>
+          </div>
+        </div>
+
+        <div class="baseboard"></div>
+      </div>
+
+      <!-- 地板 -->
+      <div class="floor" id="floor">
+        <div class="floor-shine"></div>
+        <div class="floor-shadow"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 光束 -->
+  <div class="light-beam" aria-hidden="true"></div>
+  <div class="dust" id="dust" aria-hidden="true"></div>
+
+  <!-- ============================ HUD ============================ -->
+  <header class="hud-top">
+    <div class="brand">
+      <span class="brand-eyebrow">OUR LITTLE ROOM · SINCE <b id="brandSince">2022.10.01</b></span>
+      <h1 class="brand-title" id="brandTitle">我们的小屋</h1>
+      <p class="brand-sub" id="brandSub">把一起走过的日子，挂在这面墙上</p>
+    </div>
+    <nav class="hud-actions">
+      <button class="btn ghost" id="btnEdit" type="button" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4l10-10-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>
+        <span>编辑</span>
+      </button>
+      <button class="btn ghost" id="btnSettings" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
+        <span>小屋设置</span>
+      </button>
+      <a class="btn solid" href="#archive" id="btnArchive">
+        <span>时间线</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v14"/><path d="M6 13l6 6 6-6"/></svg>
+      </a>
+    </nav>
+  </header>
+
+  <div class="hud-bottom">
+    <div class="counters">
+      <div class="counter">
+        <span class="counter-num" id="daysTogether">0</span>
+        <span class="counter-unit">天</span>
+      </div>
+      <div class="counter-meta">
+        <span id="statSince">从 2022.10.01 起</span>
+        <i></i>
+        <span id="statMoments">0 个瞬间</span>
+        <i></i>
+        <span id="statYears">0 年</span>
+      </div>
+    </div>
+    <a class="scroll-hint" href="#archive">
+      <span class="line"></span>
+      <span class="txt">向下滚动 · 看完整时间线</span>
+    </a>
+  </div>
+
+  <!-- 编辑模式提示条 -->
+  <div class="editbar" id="editbar">
+    <span class="dot"></span>
+    <span class="txt">编辑模式 · 点照片可修改，点“＋”添加新的回忆</span>
+    <button class="btn tiny" id="btnAddTop" type="button">＋ 新回忆</button>
+    <button class="btn tiny ghost" id="btnDone" type="button">完成</button>
+  </div>
+</section>
+
+<!-- ============================ 时间线 ============================ -->
+<section class="archive" id="archive">
+  <div class="archive-inner">
+    <header class="archive-head">
+      <span class="eyebrow">TIMELINE</span>
+      <h2>时间线</h2>
+      <p class="archive-sub">从 <b id="archiveStart">2022.10.01</b> 起，一共记录了 <b id="archiveCount">6</b> 次出行与相处。</p>
+      <div class="chips" id="yearChips"></div>
+    </header>
+
+    <div class="timeline" id="timeline"></div>
+
+    <div class="archive-empty" id="archiveEmpty" hidden>
+      <p>这一段还没有记录。回房间点“编辑”加一段吧。</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-foot">
+  <div class="foot-inner">
+    <div class="foot-left">
+      <span class="foot-title">我们的小屋</span>
+      <span class="foot-note">数据保存在这台电脑的浏览器里，换电脑请先导出备份。</span>
+      <span class="foot-sync" id="syncState">仅保存在本机</span>
+    </div>
+    <div class="foot-actions">
+      <button class="btn tiny ghost" id="btnExport" type="button">导出备份</button>
+      <button class="btn tiny ghost" id="btnImport" type="button">导入备份</button>
+      <input type="file" id="fileImport" accept="application/json" hidden>
+    </div>
+  </div>
+</footer>
+
+<!-- 详情 -->
+<div class="modal" id="detailModal" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <div class="detail card" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <button class="close" data-close="1" aria-label="关闭">✕</button>
+    <div class="detail-media">
+      <img id="detailImg" src="" alt="">
+      <button class="nav prev" id="detailPrev" aria-label="上一张">‹</button>
+      <button class="nav next" id="detailNext" aria-label="下一张">›</button>
+      <div class="detail-dots" id="detailDots"></div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-date" id="detailDate"></div>
+      <h3 class="detail-title" id="detailTitle"></h3>
+      <div class="detail-place" id="detailPlace"></div>
+      <p class="detail-note" id="detailNote"></p>
+      <div class="detail-foot">
+        <span id="detailIndex"></span>
+        <button class="btn tiny ghost" id="detailEdit" type="button">编辑这条</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 编辑 / 新建 -->
+<div class="modal" id="editorModal" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <form class="editor card" id="editorForm" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+    <button class="close" type="button" data-close="1" aria-label="关闭">✕</button>
+    <h3 id="editorTitle">新的回忆</h3>
+
+    <div class="row two">
+      <label class="field">
+        <span>日期</span>
+        <input type="date" name="date" required>
+      </label>
+      <label class="field">
+        <span>地点</span>
+        <input type="text" name="place" placeholder="例如：图书馆三楼 / 松花湖">
+      </label>
+    </div>
+
+    <label class="field">
+      <span>标题</span>
+      <input type="text" name="title" placeholder="给这一天起个名字" required>
+    </label>
+
+    <label class="field">
+      <span>想记下来的话</span>
+      <textarea name="note" rows="4" placeholder="那天发生了什么？天气、对话、心情……"></textarea>
+    </label>
+
+    <div class="field">
+      <span>照片（可多张，第一张会挂在墙上）</span>
+      <div class="drop" id="dropZone">
+        <input type="file" id="filePhotos" accept="image/*" multiple hidden>
+        <div class="drop-hint">
+          <b>点击选择</b> 或把照片拖进来
+          <small>照片会被压缩后保存在浏览器里，建议每张 &lt; 2MB</small>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+    </div>
+
+    <div class="editor-foot">
+      <button class="btn ghost danger" type="button" id="btnDelete" hidden>删除这条</button>
+      <div class="spacer"></div>
+      <button class="btn ghost" type="button" data-close="1">取消</button>
+      <button class="btn solid" type="submit">保存</button>
+    </div>
+  </form>
+</div>
+
+<!-- 设置 -->
+<div class="modal" id="settingsModal" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <form class="editor card narrow" id="settingsForm" role="dialog" aria-modal="true">
+    <button class="close" type="button" data-close="1" aria-label="关闭">✕</button>
+    <h3>小屋设置</h3>
+    <label class="field">
+      <span>标题</span>
+      <input type="text" name="title" maxlength="16">
+    </label>
+    <label class="field">
+      <span>副标题</span>
+      <input type="text" name="subtitle" maxlength="40">
+    </label>
+    <label class="field">
+      <span>在一起的第一天</span>
+      <input type="date" name="startDate">
+    </label>
+    <div class="editor-foot">
+      <button class="btn ghost danger" type="button" id="btnReset">恢复示例数据</button>
+      <div class="spacer"></div>
+      <button class="btn ghost" type="button" data-close="1">取消</button>
+      <button class="btn solid" type="submit">保存</button>
+    </div>
+  </form>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<!-- 口令门（只有部署到云端时才会出现） -->
+<div class="gate" id="gate" hidden>
+  <div class="gate-bg" aria-hidden="true"></div>
+  <form class="gate-card" id="gateForm" autocomplete="on">
+    <span class="gate-eyebrow">PRIVATE ROOM</span>
+    <h2>请输入暗号</h2>
+    <p class="gate-sub">这间小屋只属于你们两个人。输入口令进去。</p>
+    <div class="gate-field">
+      <input type="password" id="gatePass" name="pass" placeholder="暗号" autocomplete="current-password" required>
+      <button class="btn solid" type="submit">进去</button>
+    </div>
+    <p class="gate-err" id="gateErr" role="alert"></p>
+    <p class="gate-hint">口令是部署时设置的环境变量 SITE_PASS，忘了可以在 Cloudflare 后台改。</p>
+  </form>
+</div>
+
+<!-- 云端版本冲突 -->
+<div class="modal" id="conflictModal" hidden>
+  <div class="modal-backdrop" data-close="1"></div>
+  <div class="editor card narrow" role="dialog" aria-modal="true">
+    <h3>云端有更新</h3>
+    <p class="conflict-text">另一台设备刚刚改过内容，和你这页的不一致。要用哪一边？</p>
+    <div class="editor-foot">
+      <button class="btn ghost" type="button" id="conflictRemote">用云端的</button>
+      <div class="spacer"></div>
+      <button class="btn solid" type="button" id="conflictLocal">用我这边的覆盖</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
